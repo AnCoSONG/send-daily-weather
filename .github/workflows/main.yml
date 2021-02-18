@@ -1,0 +1,28 @@
+name: 'send daily weather'
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 23 * * *'
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: Get weather
+        run: bash ./get-weather.sh Nanchang
+      - name: send to vimily
+        uses: dawidd6/action-send-mail@master
+        with:
+          server_address: smtp.163.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Shanghai Weather Report (${{env.REPORT_DATE}})
+          body: file://result.html
+          to: 1518033321@qq.com
+          from: GitHub Actions
+          content_type: text/html
