@@ -36,6 +36,6 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: '每日天气'
           body: file://result-太原.html
-          to: me@anco.fun
+          to: me@anco.fun,xunbinbin@hotmail.com,song.tian.shi@hotmail.com
           from: '每日天气服务'
           content_type: text/html
