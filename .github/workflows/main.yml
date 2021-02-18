@@ -1,8 +1,6 @@
 name: 'send daily weather'
 on:
   push:
-    branches:
-      - master
   schedule:
     - cron: '0 23 * * *'
 
@@ -12,17 +10,33 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-      - name: Get weather
-        run: bash ./get-weather.sh Nanchang
-      - name: send to vimily
+      - name: Get weathers
+        run: |
+          bash ./get-weather.sh Nanchang
+          bash ./get-weather.sh Taiyuan
+      # - name: send to vimily
+      #   uses: dawidd6/action-send-mail@master
+      #   with:
+      #     server_address: smtp.163.com
+      #     server_port: 465
+      #     username: ${{ secrets.MAIL_USERNAME }}
+      #     password: ${{ secrets.MAIL_PASSWORD }}
+      #     subject: '每日天气 今天也要好好减肥!'
+      #     body: file://result-Nanchang.html
+      #     to: 1518033321@qq.com
+      #     from: '你的小奶狗'
+      #     content_type: text/html
+      - name: Get TY weather
+        run: bash ./get-weather.sh 太原
+      - name: send to myself
         uses: dawidd6/action-send-mail@master
         with:
-          server_address: smtp.163.com
+          server_address: smtp.qq.com
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Shanghai Weather Report (${{env.REPORT_DATE}})
-          body: file://result.html
-          to: 1518033321@qq.com
+          subject: '每日天气'
+          body: file://result-太原.html
+          to: me@anco.fun
           from: GitHub Actions
           content_type: text/html
