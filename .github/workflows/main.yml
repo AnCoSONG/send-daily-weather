@@ -12,8 +12,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Get weathers
         run: |
-          bash ./get-weather.sh 太原
-          bash ./get-weather.sh 南昌
+          bash ./get-weather.sh Taiyuan
+          bash ./get-weather.sh Nanchang
           bash ./get-weather.sh
       - name: send to vimily
         uses: dawidd6/action-send-mail@master
@@ -23,7 +23,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: '每日天气 今天也要好好减肥!'
-          body: file://result-南昌.html
+          body: file://result-Nanchang.html
           to: 1518033321@qq.com
           from: '你的小奶狗的每日天气服务'
           content_type: text/html
@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: '每日天气'
-          body: file://result-太原.html
+          body: file://result-Taiyuan.html
           to: me@anco.fun,xunbinbin@hotmail.com,song.tian.shi@hotmail.com
           from: '每日天气服务'
           content_type: text/html
